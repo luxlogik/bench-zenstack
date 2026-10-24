@@ -17,7 +17,7 @@ permissions:
 
 jobs:
     build-test:
-        runs-on: ubuntu-latest
+        runs-on: compiler-8cpu
 
         services:
             postgres:
@@ -95,6 +95,9 @@ jobs:
 
             - name: Lint
               run: pnpm run lint
+
+            - name: Install mysql client (not preinstalled on compiler runner image)
+              run: sudo apt-get update -qq && sudo apt-get install -y -qq mysql-client
 
             - name: Set MySQL max_connections
               run: |
